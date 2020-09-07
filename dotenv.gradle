@@ -39,17 +39,6 @@ def readDotEnv = {
     }
 
     def env = [:]
-    println("Reading env from: ${System.getProperty( 'user.dir' )}/$envFile")
-    try {
-        new File("${System.getProperty( 'user.dir' )}/$envFile").eachLine { line ->
-            def matcher = (line =~ /^\s*(?:export\s+|)([\w\d.\-_]+)\s*=\s*['"]?(.*?)?['"]?\s*$/)
-            if (matcher.getCount() == 1 && matcher[0].size() == 3) {
-                env.put(matcher[0][1], matcher[0][2])
-            }
-        }
-    } catch (FileNotFoundException ignored) {
-        println("*** Missing app.properties file ****")
-    }
     
     println("Reading env from: $project.rootDir/$envFile")
     try {
